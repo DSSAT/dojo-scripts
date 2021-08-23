@@ -33,66 +33,7 @@
 	},
 	"runs": [
 		{
-			"name": "Belg-Irrigated",
-			"harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_maiz_i_belg.tif",
-			"icsw%": 50,
-			"flhst":"FH301",
-			"icres": 200,
-			"fen_tot": 100,
-			"icrt": 20,
-			"ingeno": "990003",
-			"pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-01::3::1985-03-01",
-			"plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-03-15::3::1985-04-12",
-			"sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-08-05::3::1984-09-03",
-			"startYear":1984,
-			"cname": "SHORT SEASON"
-		},
-		{
-			"name": "Belg-Rainfed_High_N_Input",
-			"harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_maiz_h_belg.tif",
-			"icres": 100,
-			"icrt": 10,
-			"fen_tot": 100,
-			"icsw%": 25,
-			"ingeno": "990003",
-			"pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-01::3::1985-03-01",
-			"plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-03-15::3::1985-04-12",
-			"sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-08-05::3::1984-09-03",
-			"startYear":1984,
-			"cname": "SHORT SEASON"
-		},
-		{
-			"name": "Belg-Rainfed_Low_N_Input",
-			"harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_maiz_l_belg.tif",
-			"ramt": 500,
-			"icres": 50,
-			"icrt": 5,
-			"fen_tot": 10,
-			"icsw%": 25,
-			"ingeno": "990003",
-			"pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-01::3::1985-03-01",
-			"plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-03-15::3::1985-04-12",
-			"sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-08-05::3::1984-09-03",
-			"startYear":1984,
-			"cname": "SHORT SEASON"
-		},
-		{
-			"name": "Belg-Rainfed_No_Input",
-			"harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_maiz_s_belg.tif",
-			"ramt": 500,
-			"icres": 0,
-			"icrt": 0,
-			"fen_tot": 0,
-			"icsw%": 25,
-			"ingeno": "990003",
-			"pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-01::3::1985-03-01",
-			"plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-03-15::3::1985-04-12",
-			"sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-08-05::3::1984-09-03",
-			"startYear":1984,
-			"cname": "SHORT SEASON"
-		},
-		{
-			"name": "Meher-Irrigated",
+			"name": "Irrigated",
 			"harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_maiz_i_meher.tif",
 			"template": "ETMZ8402.SNX",
 			"icsw%": 50,
@@ -105,7 +46,7 @@
 			"startYear":1984
 		},
 		{
-			"name": "Meher-Rainfed_High_N_Input",
+			"name": "Rainfed_High_N_Input",
 			"harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_maiz_h_meher.tif",
 			"icres": 100,
 			"icrt": 10,
@@ -116,7 +57,7 @@
 			"startYear":1984
 		},
 		{
-			"name": "Meher-Rainfed_Low_N_Input",
+			"name": "Rainfed_Low_N_Input",
 			"harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_maiz_l_meher.tif",
 			"ramt": 500,
 			"icres": 50,
@@ -128,7 +69,7 @@
 			"startYear":1984
 		},
 		{
-			"name": "Meher-Rainfed_No_Input",
+			"name": "Rainfed_No_Input",
 			"harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_maiz_s_meher.tif",
 			"ramt": 500,
 			"icres": 0,
