@@ -1,133 +1,142 @@
 {
-	"name": "DSSAT",
-	"workDir": "/userdata/out",
-	"templateDir": "/data/kenya/templates",
-	"weatherDir": "/data/kenya/weather",
-	"threads": 6,
-	"cores": 12,
-	"sample": 5,
-	"ghr_root":"/data/base/eGHR",
-	"plugins":[{
-            "plugin": "sensitivity_plugin",
-            "params": {
-                "fen_tot": {
-                    "method": "offset",
-                    "values": [0]
-                },
-                "erain": {
-                    "method": "env_mod",
-                    "values": [1.0]
-                },
-                "pfrst": {
-                    "method": "date_offset",
-                    "values": [0],
-                    "hook": "post_build_context"
-                },
-                "plast": {
-                	"comment": "Planting window is 42 days (or 6 weeks) long",
-                    "method": "date_offset",
-                    "value": 42,
-                    "from": "pfrst",
-                    "hook": "post_build_context",
-                    "static": true
-                },
-                "sdate": {
-                	"comment": "Start date is set to 180 days before planting date",
-                    "method": "date_offset",
-                    "value": -180,
-                    "from": "pfrst",
-                    "hook": "post_build_context",
-                    "static": true
-                }
-            },
-            "order": 1
-        }],
-
-	"default_setup": {
-		"include":["/data/kenya/includes/WHCER047.CUL"],
-		"template": "CRWH8401.SNX",
-		"sites": "xy_from_vector::/data/kenya/shapes/KEN_five_arc_points.shp",
-		"startYear": 1984,
-		"nyers": 37,
-		"icin": 10,
-		"icsw%": 25,
-		"flhst":"FH302",
-		"fhdur": 10,
-		"icren": 0.8,
-		"erain": 1.00,
-		"ph2ol": 40,
-		"id_soil": "lookup_ghr::raster::/data/base/eGHR/GHR.tif",
-		"wsta": "lookup_wth::GGCP::vector::/data/kenya/shapes/KEN_five_arc_points.shp::ID",
-		"ic_layers": "generate_ic_layers::$id_soil",
-		"fertilizers": "split_fert_dap_percent::$fen_tot::5::0::20::30::80"
-	},
-	"dssat": {
-		"executable": "/opt/dssat/run_dssat",
-	},
-	"analytics_setup": {
-		"per_pixel_prefix":"pp",
-	},
-	"runs": [
-		{
-			"name": "WH_IR",
-			"harvestArea": "raster::/data/base/spam2010/spam2010V2r0_global_H_WHEA_I.tif", 
-			"icres": 200,
-			"icrt": 20,
-			"fen_tot": 100,
-			"ramt": 500,
-			"icsw%": 25,
-			"irrig": "A",
-			"ingeno": "999993",
-			"cname": "HAR2501", 
-			"pfrst": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PStart_SAGE.tif", 
-			"plast": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PMid_SAGE.tif",
-			"sdate": "date_offset::$pfrst::0"
-		},
-		{
-			"name": "WH_RF_HI",
-			"harvestArea": "raster::/data/base/spam2010/spam2010V2r0_global_H_WHEA_H.tif",
-			"icres": 200,
-			"icrt": 20,
-			"fen_tot": 100,
-			"ramt": 500,
-			"icsw%": 25,
-			"irrig": "R",
-			"ingeno": "999993",
-			"cname": "HAR2501",
-			"pfrst": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PStart_SAGE.tif",
-			"plast": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PMid_SAGE.tif",
-			"sdate": "date_offset::$pfrst::0"
-		},
-		{
-			"name": "WH_RF_LI",
-			"harvestArea": "raster::/data/base/spam2010/spam2010V2r0_global_H_WHEA_L.tif",
-			"icres": 200,
-			"icrt": 20,
-			"fen_tot": 50,
-			"ramt": 50,
-			"icsw%": 25,
-			"irrig": "R",
-			"ingeno": "999993",
-			"cname": "HAR2501",
-			"pfrst": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PStart_SAGE.tif",
-			"plast": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PMid_SAGE.tif",
-			"sdate": "date_offset::$pfrst::0"
-		},
-		{
-			"name": "WH_RF_SU",
-			"harvestArea": "raster::/data/base/spam2010/spam2010V2r0_global_H_WHEA_S.tif",
-			"icres": 200,
-			"icrt": 20,
-			"fen_tot": 0,
-			"ramt": 0,
-			"icsw%": 25,
-			"irrig": "R",
-			"ingeno": "999993",
-			"cname": "HAR2501",
-			"pfrst": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PStart_SAGE.tif",
-			"plast": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PMid_SAGE.tif",
-			"sdate": "date_offset::$pfrst::0"
-		}
-
-	]
+  "name": "DSSAT",
+  "workDir": "/tmp/results",
+  "templateDir": "/data/kenya/templates",
+  "weatherDir": "/data/kenya/weather",
+  "threads": 6,
+  "cores": 12,
+  "sample": 10,
+  "ghr_root": "/data/base/eGHR",
+  "plugins": [
+    {
+      "plugin": "sensitivity_plugin",
+      "params": {
+        "fen_tot": {
+          "method": "offset",
+          "values": [
+            0
+          ]
+        },
+        "erain": {
+          "method": "env_mod",
+          "values": [
+            1
+          ]
+        },
+        "pfrst": {
+          "method": "date_offset",
+          "values": [
+            0
+          ],
+          "hook": "post_build_context"
+        },
+        "plast": {
+          "comment": "Planting window is 42 days (or 6 weeks) long",
+          "method": "date_offset",
+          "value": 42,
+          "from": "pfrst",
+          "hook": "post_build_context",
+          "static": true
+        },
+        "sdate": {
+          "comment": "Start date is set to 180 days before planting date",
+          "method": "date_offset",
+          "value": -180,
+          "from": "pfrst",
+          "hook": "post_build_context",
+          "static": true
+        }
+      },
+      "order": 1,
+      "no_rename": true
+    }
+  ],
+  "default_setup": {
+    "include": [
+      "/data/kenya/includes/WHCER047.CUL"
+    ],
+    "template": "CRWH8401.SNX",
+    "sites": "xy_from_vector::/data/kenya/shapes/KEN_five_arc_points.shp",
+    "startYear": 1984,
+    "nyers": 37,
+    "icin": 10,
+    "icsw%": 25,
+    "flhst": "FH302",
+    "fhdur": 10,
+    "icren": 0.8,
+    "erain": 1,
+    "ph2ol": 40,
+    "id_soil": "lookup_ghr::raster::/data/base/eGHR/GHR.tif",
+    "wsta": "lookup_wth::GGCP::vector::/data/kenya/shapes/KEN_five_arc_points.shp::ID",
+    "ic_layers": "generate_ic_layers::$id_soil",
+    "fertilizers": "split_fert_dap_percent::$fen_tot::5::0::20::30::80"
+  },
+  "dssat": {
+    "executable": "/opt/dssat/run_dssat"
+  },
+  "analytics_setup": {
+    "per_pixel_prefix": "pp"
+  },
+  "runs": [
+    {
+      "name": "WH_IR",
+      "harvestArea": "raster::/data/base/spam2010/spam2010V2r0_global_H_WHEA_I.tif",
+      "icres": 200,
+      "icrt": 20,
+      "fen_tot": 100,
+      "ramt": 500,
+      "icsw%": 25,
+      "irrig": "A",
+      "ingeno": "999993",
+      "cname": "HAR2501",
+      "pfrst": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PStart_SAGE.tif",
+      "plast": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PMid_SAGE.tif",
+      "sdate": "date_offset::$pfrst::0"
+    },
+    {
+      "name": "WH_RF_HI",
+      "harvestArea": "raster::/data/base/spam2010/spam2010V2r0_global_H_WHEA_H.tif",
+      "icres": 200,
+      "icrt": 20,
+      "fen_tot": 100,
+      "ramt": 500,
+      "icsw%": 25,
+      "irrig": "R",
+      "ingeno": "999993",
+      "cname": "HAR2501",
+      "pfrst": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PStart_SAGE.tif",
+      "plast": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PMid_SAGE.tif",
+      "sdate": "date_offset::$pfrst::0"
+    },
+    {
+      "name": "WH_RF_LI",
+      "harvestArea": "raster::/data/base/spam2010/spam2010V2r0_global_H_WHEA_L.tif",
+      "icres": 200,
+      "icrt": 20,
+      "fen_tot": 50,
+      "ramt": 50,
+      "icsw%": 25,
+      "irrig": "R",
+      "ingeno": "999993",
+      "cname": "HAR2501",
+      "pfrst": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PStart_SAGE.tif",
+      "plast": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PMid_SAGE.tif",
+      "sdate": "date_offset::$pfrst::0"
+    },
+    {
+      "name": "WH_RF_SU",
+      "harvestArea": "raster::/data/base/spam2010/spam2010V2r0_global_H_WHEA_S.tif",
+      "icres": 200,
+      "icrt": 20,
+      "fen_tot": 0,
+      "ramt": 0,
+      "icsw%": 25,
+      "irrig": "R",
+      "ingeno": "999993",
+      "cname": "HAR2501",
+      "pfrst": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PStart_SAGE.tif",
+      "plast": "date_from_doy_raster::raster::/data/base/SAGEcropcalendar/WH_PMid_SAGE.tif",
+      "sdate": "date_offset::$pfrst::0"
+    }
+  ]
 }
