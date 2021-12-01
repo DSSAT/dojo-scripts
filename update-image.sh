@@ -10,12 +10,12 @@ sudo chown clouseau /opt && sudo chown clouseau /data && sudo chown clouseau /us
 # Install DSSAT
 cd $HOME && mkdir src && cd src && \
 git clone https://github.com/DSSAT/dssat-csm-os && \
-cd dssat-csm-os && git checkout 3ccad41098ac7c7a162f1d463bd09c82e8931845 -b 4.7.5.42 && \
+cd dssat-csm-os && git checkout e595e1b37cfb012ae466a3c3a2764f4b1624ffab -b 4.8.0.17 && \
 mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=/opt/dssat -DCMAKE_BUILD_TYPE=RELEASE .. && \
 make && make install
 
 # Install pythia
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 - && \
+curl -sSL https://install.python-poetry.org | python3 - && \
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && \
 export PATH="$HOME/.local/bin:$PATH" && \
 cd $HOME/src && git clone https://github.com/DSSAT/pythia && cd pythia && \
