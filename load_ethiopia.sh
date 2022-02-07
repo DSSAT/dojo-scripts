@@ -4,18 +4,18 @@ CURRENT=`pwd`
 
 # Fetch Kenya data
 echo "Downloading data for Ethiopia..."
-curl --create-dirs -o $HOME/downloads/ethiopia-runs-latest.tar.xz https://data.agmip.org/darpa/ethiopia-runs-latest.tar.xz
-curl --create-dirs -o $HOME/downloads/ethiopia-base-latest.tar.xz https://data.agmip.org/darpa/ethiopia-base-latest.tar.xz
-curl --create-dirs -o $HOME/downloads/ethiopia-weather-latest.tar.xz https://data.agmip.org/darpa/ethiopia-weather-latest.tar.xz
+curl --create-dirs -o $HOME/downloads/ethiopia-runs-latest.tar.bz2 https://data.agmip.org/darpa/ethiopia-runs-latest.tar.bz2
+curl --create-dirs -o $HOME/downloads/ethiopia-base-latest.tar.bz2 https://data.agmip.org/darpa/ethiopia-base-latest.tar.bz2
+curl --create-dirs -o $HOME/downloads/ethiopia-weather-latest.tar.bz2 https://data.agmip.org/darpa/ethiopia-weather-latest.tar.bz2
 
 echo "Extracting data..."
 cd /data
-tar xvf $HOME/downloads/ethiopia-base-latest.tar.xz
+tar xjvf $HOME/downloads/ethiopia-base-latest.tar.bz2
 mkdir /data/ethiopia/weather
 cd /data/ethiopia/weather
-tar xvf $HOME/downloads/ethiopia-weather-latest.tar.xz
+tar xjvf $HOME/downloads/ethiopia-weather-latest.tar.bz2
 cd /userdata
-tar xvf $HOME/downloads/ethiopia-runs-latest.tar.xz
+tar xjvf $HOME/downloads/ethiopia-runs-latest.tar.bz2
 echo "DONE!"
 
 cd $CURRENT
