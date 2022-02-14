@@ -3,49 +3,49 @@
   "workDir": "/tmp/results",
   "templateDir": "/data/ethiopia/templates",
   "weatherDir": "/data/ethiopia/weather",
-  "threads": 6,
-  "cores": 12,
+  "threads": 2,
+  "cores": 4,
   "ghr_root": "/data/base/eGHR",
   "sample": 10,
   "plugins": [
     {
       "plugin": "sensitivity_plugin",
       "params": {
-        "fen_tot": {
-          "method": "offset",
-          "values": [
-            0
-          ]
-        },
-        "erain": {
-          "method": "env_mod",
-          "values": [
-            1
-          ]
-        },
-        "pfrst": {
-          "method": "date_offset",
-          "values": [
-            0
-          ],
-          "hook": "post_build_context"
-        },
-        "plast": {
-          "comment": "Planting window is 42 days (or 6 weeks) long",
-          "method": "date_offset",
-          "value": 42,
-          "from": "pfrst",
-          "hook": "post_build_context",
-          "static": true
-        },
-        "sdate": {
-          "comment": "Start date is set to 180 days before planting date",
-          "method": "date_offset",
-          "value": -180,
-          "from": "pfrst",
-          "hook": "post_build_context",
-          "static": true
-        }
+	"fen_tot": {
+	  "method": "offset",
+	  "values": [
+	    0
+	  ]
+	},
+	"erain": {
+	  "method": "env_mod",
+	  "values": [
+	    1
+	  ]
+	},
+	"pfrst": {
+	  "method": "date_offset",
+	  "values": [
+	    0
+	  ],
+	  "hook": "post_build_context"
+	},
+	"plast": {
+	  "comment": "Planting window is 42 days (or 6 weeks) long",
+	  "method": "date_offset",
+	  "value": 42,
+	  "from": "pfrst",
+	  "hook": "post_build_context",
+	  "static": true
+	},
+	"sdate": {
+	  "comment": "Start date is set to 180 days before planting date",
+	  "method": "date_offset",
+	  "value": -180,
+	  "from": "pfrst",
+	  "hook": "post_build_context",
+	  "static": true
+	}
       },
       "order": 1,
       "no_rename": true
@@ -53,7 +53,7 @@
   ],
   "default_setup": {
     "include": [
-      "/data/ethiopia/includes/MZCER047.CUL"
+      "/data/ethiopia/includes/MZCER048.CUL"
     ],
     "template": "ETMZ8403.SNX",
     "sites": "xy_from_vector::/data/ethiopia/shapes/Five_arcmin_pt_Eth.shp",
@@ -73,39 +73,45 @@
     "fertilizers": "split_fert_dap_percent::$fen_tot::5::0::50::30::50"
   },
   "dssat": {
-    "executable": "/opt/dssat/run_dssat"
+    "executable": "/opt/dssat/dscsm048"
   },
   "analytics_setup": {
-    "per_pixel_prefix": "pp"
+    "singleOutput": true
   },
   "runs": [
     {
-      "name": "Irrigated",
-      "harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_maiz_i_meher.tif",
+      "name": "Maize_irrig_meher_BH660-Araya_base",
+      "season": "Meher",
+      "management": "Irrigated High N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_MZ_IR_Meher.tif",
       "template": "ETMZ8402.SNX",
       "icsw%": 50,
-      "flhst": "FH301",
+      "flhst":"FH301",
       "icres": 200,
       "icrt": 20,
       "fen_tot": 100,
       "ingeno": "990010",
       "cname": "BH660-Araya",
-      "startYear": 1984
+      "startYear":1984
     },
     {
-      "name": "Rainfed_High_N_Input",
-      "harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_maiz_h_meher.tif",
+      "name": "Maize_rf_highN_meher_BH660-Araya_base",
+      "season": "Meher",
+      "management": "Rainfed High N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_MZ_HI_Meher.tif",
       "icres": 100,
       "icrt": 10,
       "fen_tot": 100,
       "icsw%": 25,
       "ingeno": "990010",
       "cname": "BH660-Araya",
-      "startYear": 1984
+      "startYear":1984
     },
     {
-      "name": "Rainfed_Low_N_Input",
-      "harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_maiz_l_meher.tif",
+      "name": "Maize_rf_lowN_meher_BH660-Araya_base",
+      "season": "Meher",
+      "management": "Rainfed Low N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_MZ_LI_Meher.tif",
       "ramt": 500,
       "icres": 50,
       "icrt": 5,
@@ -113,11 +119,13 @@
       "icsw%": 25,
       "ingeno": "990010",
       "cname": "BH660-Araya",
-      "startYear": 1984
+      "startYear":1984
     },
     {
-      "name": "Rainfed_No_Input",
-      "harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_maiz_s_meher.tif",
+      "name": "Maize_rf_0N_meher_BH660-Araya_base",
+      "season": "Meher",
+      "management": "Rainfed No N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_MZ_SU_Meher.tif",
       "ramt": 500,
       "icres": 0,
       "icrt": 0,
@@ -125,7 +133,76 @@
       "icsw%": 25,
       "ingeno": "990010",
       "cname": "BH660-Araya",
-      "startYear": 1984
+      "startYear":1984
+    },
+    {
+      "name": "Maize_irrig_belg_S_season_base",
+      "season": "Belg",
+      "management": "Irrigated High N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_MZ_IR_Belg.tif",
+      "icsw%": 50,
+      "flhst":"FH301",
+      "icres": 200,
+      "fen_tot": 100,
+      "icrt": 20,
+      "ingeno": "990003",
+      "pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-01::3::1985-03-01",
+      "plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-03-15::3::1985-04-12",
+      "sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-08-05::3::1984-09-03",
+      "startYear":1984,
+      "cname": "SHORT SEASON"
+    },
+    {
+      "name": "Maize_rf_highN_belg_S_season_base",
+      "season": "Belg",
+      "management": "Rainfed High N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_MZ_HI_Belg.tif",
+      "icres": 100,
+      "icrt": 10,
+      "fen_tot": 100,
+      "icsw%": 25,
+      "ingeno": "990003",
+      "pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-01::3::1985-03-01",
+      "plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-03-15::3::1985-04-12",
+      "sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-08-05::3::1984-09-03",
+      "startYear":1984,
+      "cname": "SHORT SEASON"
+    },
+    {
+      "name": "Maize_rf_lowN_belg_S_season_base",
+      "season": "Belg",
+      "management": "Rainfed Low N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_MZ_LI_Belg.tif",
+      "ramt": 500,
+      "icres": 50,
+      "icrt": 5,
+      "fen_tot": 10,
+      "icsw%": 25,
+      "ingeno": "990003",
+      "pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-01::3::1985-03-01",
+      "plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-03-15::3::1985-04-12",
+      "sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-08-05::3::1984-09-03",
+      "startYear":1984,
+      "cname": "SHORT SEASON"
+    },
+    {
+      "name": "Maize_rf_0N_belg_S_season_base",
+      "season": "Belg",
+      "management": "Rainfed No N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_MZ_SU_Belg.tif",
+      "ramt": 500,
+      "icres": 0,
+      "icrt": 0,
+      "fen_tot": 0,
+      "icsw%": 25,
+      "ingeno": "990003",
+      "pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-01::3::1985-03-01",
+      "plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-03-15::3::1985-04-12",
+      "sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-08-05::3::1984-09-03",
+      "startYear":1984,
+      "cname": "SHORT SEASON"
     }
+
   ]
 }
+

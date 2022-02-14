@@ -2,7 +2,7 @@
 
 sudo apt update && \
 sudo apt install -y --no-install-recommends build-essential gfortran cmake \
-python3-pip \
+python3-pip python3-venv \
 r-base libcurl4-openssl-dev libgdal-dev libudunits2-dev libssl-dev
 sudo mkdir /userdata && sudo mkdir /data && \
 sudo chown clouseau /opt && sudo chown clouseau /data && sudo chown clouseau /userdata
@@ -19,7 +19,7 @@ curl -sSL https://install.python-poetry.org | python3 - && \
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && \
 export PATH="$HOME/.local/bin:$PATH" && \
 cd $HOME/src && git clone https://github.com/DSSAT/pythia && cd pythia && \
-poetry build && cd dist && pip3 install --user pythia-2.0.0b0-py3-none-any.whl
+poetry build && cd dist && pip3 install --user pythia-2.1.2-py3-none-any.whl
 
 # Install pythia-analytics
 cd /opt && git clone https://github.com/DSSAT/supermaas-aggregate-pythia-outputs pythia-analytics && \
