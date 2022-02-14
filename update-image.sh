@@ -2,7 +2,7 @@
 
 sudo apt update && \
 sudo apt install -y --no-install-recommends build-essential gfortran cmake \
-python3-pip python3-venv \
+python3-pip python3-venv python3-setuptools python3-wheel \
 r-base libcurl4-openssl-dev libgdal-dev libudunits2-dev libssl-dev
 sudo mkdir /userdata && sudo mkdir /data && \
 sudo chown clouseau /opt && sudo chown clouseau /data && sudo chown clouseau /userdata
