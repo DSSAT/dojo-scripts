@@ -1,29 +1,8 @@
 #!/bin/sh
 
-sudo apt update && \
-sudo apt install -y --no-install-recommends build-essential gfortran cmake \
-python3-pip python3-venv python3-setuptools python3-wheel \
-r-base libcurl4-openssl-dev libgdal-dev libudunits2-dev libssl-dev
+# Create working directories
 sudo mkdir /userdata && sudo mkdir /data && \
 sudo chown clouseau /opt && sudo chown clouseau /data && sudo chown clouseau /userdata
-
-# Install DSSAT
-cd $HOME && mkdir src && cd src && \
-git clone https://github.com/DSSAT/dssat-csm-os && \
-cd dssat-csm-os && git checkout e595e1b37cfb012ae466a3c3a2764f4b1624ffab -b 4.8.0.17 && \
-mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=/opt/dssat -DCMAKE_BUILD_TYPE=RELEASE .. && \
-make && make install
-
-# Install pythia
-curl -sSL https://install.python-poetry.org | python3 - && \
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && \
-export PATH="$HOME/.local/bin:$PATH" && \
-cd $HOME/src && git clone https://github.com/DSSAT/pythia && cd pythia && \
-poetry build && cd dist && pip3 install --user pythia-2.1.2-py3-none-any.whl
-
-# Install pythia-analytics
-cd /opt && git clone https://github.com/DSSAT/supermaas-aggregate-pythia-outputs pythia-analytics && \
-cd pythia-analytics && git checkout develop && Rscript install-deps-lite.R
 
 # Download the base data to the image
 curl --create-dirs -o $HOME/downloads/global-base-latest.tar.bz2 https://data.agmip.org/darpa/global-base-latest.tar.bz2 && \
