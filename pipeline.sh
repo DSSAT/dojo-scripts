@@ -28,7 +28,6 @@ mkdir -p $RAW_PYTHIA_OUT && \
 /home/clouseau/.local/bin/pythia --clean-work-dir --all /userdata/pythia.json && \
 cp "${RAW_PYTHIA_DIR}/${PYTHIA_PP}" $PYTHIA_OUT_FILE
 cd /opt/pythia-analytics && \
-/usr/bin/Rscript fix-pythia-outputs.R -o -l 2 -v $ADMLV_LEVEL -u $ADMLV_MATCH -- $PYTHIA_OUT_FILE && \
 /usr/bin/Rscript aggregate-pythia-outputs.R -f LATITUDE LONGITUDE MGMT HYEAR CR SEASON-v PRODUCTION CROP_FAILURE_AREA -t HARVEST_AREA -o NICM -a HWAM -c $CROP_FAILURE_THRESHOLD -l $LOW_PRODUCTION_PER_PERSON_THRESHOLD -- $PYTHIA_OUT_FILE $ANALYSIS_DIR/stage_2.csv && \
 rm -rf $RAW_PYTHIA_DIR && \
 rm -rf $WEATHER_PATH && \
