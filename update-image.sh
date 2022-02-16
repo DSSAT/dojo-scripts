@@ -2,7 +2,7 @@
 
 # Create working directories
 sudo mkdir /userdata && sudo mkdir /data && \
-sudo chown clouseau /opt && sudo chown clouseau /data && sudo chown clouseau /userdata
+sudo chown -R clouseau /opt && sudo chown -R clouseau /data && sudo chown -R clouseau /userdata
 
 # Download the base data to the image
 curl --create-dirs -o $HOME/downloads/global-base-latest.tar.bz2 https://data.agmip.org/darpa/global-base-latest.tar.bz2 && \
@@ -17,5 +17,9 @@ sudo chmod 755 /usr/local/bin/load_kenya && sudo chown clouseau /usr/local/bin/l
 sudo chmod 755 /usr/local/bin/load_ethiopia && sudo chown clouseau /usr/local/bin/load_ethiopia
 sudo chmod 755 /usr/local/bin/pipeline  && sudo chown clouseau /usr/local/bin/pipeline
 sudo chmod 755 /usr/local/bin/baseline && sudo chown clouseau /usr/local/bin/baseline
+
+# Handle the user install of R packages
+cd /opt/pythia-analytics && \
+Rscript install-deps-lite.R
 
 cd $HOME
