@@ -19,6 +19,7 @@ sudo chmod 755 /usr/local/bin/pipeline  && sudo chown clouseau /usr/local/bin/pi
 sudo chmod 755 /usr/local/bin/baseline && sudo chown clouseau /usr/local/bin/baseline
 
 # Handle the user install of R packages
+sudo chown -R /opt && \
 cd /opt/pythia-analytics && \
 Rscript install-deps-lite.R
 
