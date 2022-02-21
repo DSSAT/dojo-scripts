@@ -28,8 +28,8 @@ tar xjvf $HOME/downloads/ethiopia-weather-latest.tar.bz2
 rm $HOME/downloads/ethiopia-weather-latest.tar.bz2
 
 # Actually run the pipeline
-rm -rf $NEW_PYTHIA_DIR && \
-mkdir -p $NEW_PYTHIA_DIR && \
+rm -rf $NEW_PYTHIA_DIR/* && \
+mkdir -p $NEW_PYTHIA_DIR
 cd $HOME && \
 pythia --clean-work-dir --all /userdata/pythia.json && \
 cp "${ORIG_PYTHIA_DIR}/${PYTHIA_PP}" $WORK_FILE
