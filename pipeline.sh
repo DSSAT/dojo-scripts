@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+!/usr/bin/env bash
 
 # This is a minimized version of the entire pipeline. We are currently working on how to get the visualization for the different
 # levels of output to work as we want in the visualization system. Until that time, we are only providing the minimally processed
@@ -34,6 +34,9 @@ cd $HOME && \
 pythia --clean-work-dir --all /userdata/pythia.json && \
 cp "${ORIG_PYTHIA_DIR}/${PYTHIA_PP}" $WORK_FILE
 cd /opt/pythia-analytics && \
+    # Assign Admin Level
+    /usr/bin/Rscript fix-pythia-outputs.R -o -l 2 -v $ADMLV_LEVEL -u $ADMLV_MATCH $WORK_FILE
+    
     # Per pixel non-aggregated values
     /usr/bin/Rscript aggregate-pythia-outputs.R -f LATITUDE LONGITUDE MGMT HYEAR CR SEASON -v PRODUCTION CROP_FAILURE_AREA -t HARVEST_AREA -o NICM -a HWAM -c $CROP_FAILURE_THRESHOLD -l $LOW_PRODUCTION_PER_PERSON -- $WORK_FILE $ANALYSIS_DIR/stage_2.csv && \
 
