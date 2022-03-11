@@ -20,6 +20,6 @@ sudo chmod 755 /usr/local/bin/baseline && sudo chown clouseau /usr/local/bin/bas
 
 # Handle the user install of R packages
 cd /opt/pythia-analytics && \
-Rscript install-deps-lite.R
+Rscript install-deps.R
 
 cd $HOME
