@@ -1,4 +1,4 @@
-!/usr/bin/env bash
+#!/usr/bin/env bash
 
 # This is a minimized version of the entire pipeline. We are currently working on how to get the visualization for the different
 # levels of output to work as we want in the visualization system. Until that time, we are only providing the minimally processed
@@ -27,9 +27,9 @@ BASELINE_IMAGE_DEST="/userdata/images"
 
 display_help() {
     echo
-    echo "cmd.sh - A demonstration script"
+    echo "pipeline - A DSSAT-pythia harness for the Dojo environment"
     echo
-    echo "Usage: cmd.sh mode arg1 [arg2] [arg3]"
+    echo "Usage: pipeline mode arg1 [arg2] [arg3]"
     echo "mode          sa, cc, f"
     echo "arg1          F,  T,  F"
     echo "arg2          R,  R,  -"
