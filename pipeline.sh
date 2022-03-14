@@ -135,7 +135,7 @@ echo "---"
 
 # Load the newest weather files
 echo "Downloading the weather files"
-curl --create-dirs -o $HOME/downloads/ethiopia-weather-latest.tar.bz2 https://data.agmip.org/darpa/ethiopia-weather-latest.tar.bz2 && \
+curl --create-dirs -so $HOME/downloads/ethiopia-weather-latest.tar.bz2 https://data.agmip.org/darpa/ethiopia-weather-latest.tar.bz2 && \
 mkdir $WEATHER_PATH && \
 cd $WEATHER_PATH && \
 echo -n "Extracting weather files..."
