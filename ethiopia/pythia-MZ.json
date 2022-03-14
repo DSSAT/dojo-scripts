@@ -14,19 +14,19 @@
 	"fen_tot": {
 	  "method": "offset",
 	  "values": [
-	    ~f_i~
+	    ~f_i~,
 	  ]
 	},
 	"erain": {
 	  "method": "env_mod",
 	  "values": [
-	    "M~p_m~"
+	    "M~p_m~",
 	  ]
 	},
 	"pfrst": {
 	  "method": "date_offset",
 	  "values": [
-	    ~pd_s~
+	    ~pd_s~,
 	  ],
 	  "hook": "post_build_context"
 	},
@@ -196,7 +196,7 @@
       "name": "Maize_rf_0N_belg_S_season_base",
       "season": "Belg",
       "nyers": 37,
-      "lateSeason6: true,
+      "lateSeason": true,
       "management": "Rainfed No N Inputs",
       "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_MZ_SU_Belg.tif",
       "ramt": 500,
