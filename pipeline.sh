@@ -143,6 +143,13 @@ tar xjf $HOME/downloads/ethiopia-weather-latest.tar.bz2
 echo "DONE"
 rm $HOME/downloads/ethiopia-weather-latest.tar.bz2
 
+# Replace templated values inside the pythia.json file.
+echo "Replacing template information..."
+sed -i "s/~f_i~/${args[0]}/g" /userdata/pythia.json &&
+sed -i "s/~p_m~/${args[1]}/g" /userdata/pythia.json &&
+sed -i "s/~pd_s~/$args[2]}/g" /userdata/pythia.json
+echo "DONE"
+
 # Actually run the pipeline
 rm -rf $NEW_PYTHIA_DIR/* && \
 mkdir -p $NEW_PYTHIA_DIR

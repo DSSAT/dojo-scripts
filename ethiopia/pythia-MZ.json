@@ -14,19 +14,19 @@
 	"fen_tot": {
 	  "method": "offset",
 	  "values": [
-	    0
+	    ~f_i~
 	  ]
 	},
 	"erain": {
 	  "method": "env_mod",
 	  "values": [
-	    "M1"
+	    "M~p_m~"
 	  ]
 	},
 	"pfrst": {
 	  "method": "date_offset",
 	  "values": [
-	    0
+	    ~pd_s~
 	  ],
 	  "hook": "post_build_context"
 	},
@@ -57,7 +57,7 @@
     ],
     "template": "ETMZ8403.SNX",
     "sites": "xy_from_vector::/data/ethiopia/shapes/Five_arcmin_pt_Eth.shp",
-    "nyers": 35,
+    "nyers": 37,
     "icin": 10,
     "icsw%": 25,
     "flhst": "FH302",
@@ -139,6 +139,7 @@
     {
       "name": "Maize_irrig_belg_S_season_base",
       "season": "Belg",
+      "nyers": 36,
       "lateSeason": true,
       "management": "Irrigated High N Inputs",
       "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_MZ_IR_Belg.tif",
@@ -157,6 +158,7 @@
     {
       "name": "Maize_rf_highN_belg_S_season_base",
       "season": "Belg",
+      "nyers": 36,
       "lateSeason": true,
       "management": "Rainfed High N Inputs",
       "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_MZ_HI_Belg.tif",
@@ -174,6 +176,7 @@
     {
       "name": "Maize_rf_lowN_belg_S_season_base",
       "season": "Belg",
+      "nyers": 36,
       "lateSeason": true,
       "management": "Rainfed Low N Inputs",
       "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_MZ_LI_Belg.tif",
@@ -192,7 +195,8 @@
     {
       "name": "Maize_rf_0N_belg_S_season_base",
       "season": "Belg",
-      "lateSeason": true,
+      "nyers": 37,
+      "lateSeason6: true,
       "management": "Rainfed No N Inputs",
       "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_MZ_SU_Belg.tif",
       "ramt": 500,
