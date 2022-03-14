@@ -145,7 +145,7 @@ rm $HOME/downloads/ethiopia-weather-latest.tar.bz2
 
 # Replace templated values inside the pythia.json file.
 echo "Replacing template information..."
-sed -i "s/~f_i~/${args[0]}/g" /userdata/pythia.json &&
+sed -i.bak "s/~f_i~/${args[0]}/g" /userdata/pythia.json &&
 sed -i "s/~p_m~/${args[1]}/g" /userdata/pythia.json &&
 sed -i "s/~pd_s~/${args[2]}/g" /userdata/pythia.json
 echo "DONE"
@@ -167,6 +167,7 @@ cd /opt/pythia-analytics && \
     
 rm -rf $ORIG_PYTHIA_DIR
 rm -rf $WEATHER_PATH
+mv /userdata/pythia.json.bak /userdata/pythia.json
 
 if [[ $is_baseline -eq 0 ]]; then
     echo -n "Copying images to be tagged for baseline runs..."
