@@ -161,9 +161,7 @@ cd /opt/pythia-analytics && \
     /usr/bin/Rscript fix-pythia-outputs.R -o -l 2 -v $ADMLV_LEVEL -u $ADMLV_MATCH -c -- $WORK_FILE && \
     
     # Per pixel non-aggregated values
-    /usr/bin/Rscript aggregate-pythia-outputs.R -f LATITUDE LONGITUDE MGMT HYEAR CR SEASON -v PRODUCTION CROP_FAILURE_AREA -t HARVEST_AREA -o NICM -a HWAM -c $CROP_FAILURE_THRESHOLD -l $LOW_PRODUCTION_PER_PERSON -- $WORK_FILE $ANALYSIS_DIR/stage_2.csv && \
-
-    /usr/bin/Rscript aggregate-pythia-outputs.R -f ADMLV2 MGMT HYEAR CR SEASON -v PRODUCTION CROP_FAILURE_AREA -t HARVEST_AREA -o NICM -a HWAM -c $CROP_FAILURE_THRESHOLD -l $LOW_PRODUCTION_PER_PERSON -- $WORK_FILE $ANALYSIS_DIR/stage_7.csv
+    /usr/bin/Rscript aggregate-pythia-outputs.R -f LATITUDE LONGITUDE MGMT HYEAR CR SEASON -v PRODUCTION CROP_FAILURE_AREA -t HARVEST_AREA -o NICM -a HWAM -c $CROP_FAILURE_THRESHOLD -l $LOW_PRODUCTION_PER_PERSON -- $WORK_FILE $ANALYSIS_DIR/stage_2.csv
     
 rm -rf $ORIG_PYTHIA_DIR
 rm -rf $WEATHER_PATH
@@ -171,7 +169,7 @@ mv /userdata/pythia.json.bak /userdata/pythia.json
 
 if [[ $is_baseline -eq 0 ]]; then
     echo -n "Copying images to be tagged for baseline runs..."
-    cp -r $BASELINE_IMAGE_SRC $BASELINE_IMAGE_DEST
+    cp -r $BASELINE_IMAGE_SRC/* $BASELINE_IMAGE_DEST
     echo "DONE"
 fi
 
