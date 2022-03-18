@@ -169,6 +169,7 @@ mv /userdata/pythia.json.bak /userdata/pythia.json
 
 if [[ $is_baseline -eq 0 ]]; then
     echo -n "Copying images to be tagged for baseline runs..."
+    mkdir -p $BASELINE_IMAGE_DEST
     cp -r $BASELINE_IMAGE_SRC/* $BASELINE_IMAGE_DEST
     echo "DONE"
 fi
