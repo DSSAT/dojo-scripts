@@ -133,6 +133,12 @@ fi
 echo "Executing run"
 echo "---"
 
+# Extract base data
+echo -n "Extracting global datasets..."
+cd /data && \
+tar xjf $HOME/downloads/global-base-latest.tar.bz2
+echo "DONE"
+
 # Load the newest weather files
 echo "Downloading the weather files"
 curl --create-dirs -so $HOME/downloads/ethiopia-weather-latest.tar.bz2 https://data.agmip.org/darpa/ethiopia-weather-latest.tar.bz2 && \

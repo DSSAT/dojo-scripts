@@ -5,9 +5,8 @@ sudo mkdir /userdata && sudo mkdir /data && \
 sudo chown -R clouseau /opt && sudo chown -R clouseau /data && sudo chown -R clouseau /userdata
 
 # Download the base data to the image
-curl --create-dirs -o $HOME/downloads/global-base-latest.tar.bz2 https://data.agmip.org/darpa/global-base-latest.tar.bz2 && \
-    cd /data && tar xjvf $HOME/downloads/global-base-latest.tar.bz2
-
+curl --create-dirs -o $HOME/downloads/global-base-latest.tar.bz2 https://data.agmip.org/darpa/global-base-latest.tar.bz2
+    
 # Download the scripts from git
 cd /usr/local/src && \
     sudo git clone https://github.com/DSSAT/dojo-scripts && \
