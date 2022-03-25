@@ -160,7 +160,7 @@ echo "DONE"
 rm -rf $NEW_PYTHIA_DIR/* && \
 mkdir -p $NEW_PYTHIA_DIR
 cd $HOME && \
-pythia --clean-work-dir --all /userdata/pythia.json && \
+pythia --quiet --clean-work-dir --all /userdata/pythia.json && \
 cp "${ORIG_PYTHIA_DIR}/${PYTHIA_PP}" $WORK_FILE
 cd /opt/pythia-analytics && \
     # Assign Admin Level
