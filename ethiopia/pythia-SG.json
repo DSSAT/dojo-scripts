@@ -3,8 +3,8 @@
   "workDir": "/tmp/results",
   "templateDir": "/data/ethiopia/templates",
   "weatherDir": "/data/ethiopia/weather",
-  "threads": 6,
-  "cores": 12,
+  "threads": 2,
+  "cores": 4,
   "ghr_root": "/data/base/eGHR",
   "sample": 10,
   "plugins": [
@@ -14,19 +14,19 @@
         "fen_tot": {
           "method": "offset",
           "values": [
-            0
+            ~f_i~
           ]
         },
         "erain": {
           "method": "env_mod",
           "values": [
-            "M1"
+            "M~p_m~"
           ]
         },
         "pfrst": {
           "method": "date_offset",
           "values": [
-            0
+            ~pd_s~
           ],
           "hook": "post_build_context"
         },
@@ -55,9 +55,9 @@
     "include": [
       "/data/ethiopia/includes/SGCER047.CUL"
     ],
-    "template": "ETSG8401.SNX",
+    "template": "DSSG2201.SNX",
     "sites": "xy_from_vector::/data/ethiopia/shapes/Five_arcmin_pt_Eth.shp",
-    "nyers": 35,
+    "nyers": 37,
     "icin": 10,
     "icsw%": 25,
     "flhst": "FH302",
@@ -77,12 +77,14 @@
     "executable": "/opt/dssat/run_dssat"
   },
   "analytics_setup": {
-    "per_pixel_prefix": "pp"
+    "singleOutput": true
   },
   "runs": [
     {
-      "name": "Irrigated",
-      "harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_sorg_i_meher.tif",
+      "name": "Sorghum_irrig_meher_base",
+      "season": "Meher",
+      "management": "Irrigated High N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_SG_IR_Meher.tif",
       "irrig": "A",
       "icsw%": 50,
       "flhst": "FH301",
@@ -94,8 +96,10 @@
       "startYear": 1984
     },
     {
-      "name": "Rainfed_High_N_Input",
-      "harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_sorg_h_meher.tif",
+      "name": "Sorghum_rf_highN_meher_base",
+      "season": "Meher",
+      "management": "Rainfed High N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_SG_HI_Meher.tif",
       "icres": 100,
       "icrt": 10,
       "fen_tot": 100,
@@ -106,8 +110,10 @@
       "startYear": 1984
     },
     {
-      "name": "Rainfed_Low_N_Input",
-      "harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_sorg_l_meher.tif",
+      "name": "Sorghum_rf_lowN_meher_base",
+      "season": "Meher",
+      "management": "Rainfed Low N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_SG_LI_Meher.tif",
       "ramt": 500,
       "icres": 50,
       "icrt": 5,
@@ -119,8 +125,10 @@
       "startYear": 1984
     },
     {
-      "name": "Rainfed_No_Input",
-      "harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_sorg_s_meher.tif",
+      "name": "Sorghum_rf_0N_meher_base",
+      "season": "Meher",
+      "management": "Rainfed No N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_SG_SU_Meher.tif",
       "ramt": 500,
       "icres": 0,
       "icrt": 0,
@@ -130,6 +138,85 @@
       "ingeno": "ET0001",
       "cname": "TESHALE",
       "startYear": 1984
+    },
+    {
+      "name": "Sorghum_irrig_belg_base",
+      "season": "Belg",
+      "lateSeason": true,
+      "nyers": 36,
+      "management": "Irrigated High N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_SG_IR_Belg.tif",
+      "irrig": "A",
+      "icsw%": 50,
+      "flhst": "FH301",
+      "icres": 200,
+      "fen_tot": 100,
+      "icrt": 20,
+      "ingeno": "ET0001",
+      "pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-01-25::3::1985-03-01",
+      "plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-28::3::1985-04-07",
+      "sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-07-25::3::1984-09-01",
+      "startYear": 1984,
+      "cname": "TESHALE"
+    },
+    {
+      "name": "Sorghum_rf_highN_belg_base",
+      "season": "Belg",
+      "lateSeason": true,
+      "nyers": 36,
+      "management": "Rainfed High N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_SG_HI_Belg.tif",
+      "icres": 100,
+      "icrt": 10,
+      "fen_tot": 100,
+      "icsw%": 25,
+      "irrig": "R",
+      "ingeno": "ET0001",
+      "pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-01-25::3::1985-03-01",
+      "plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-28::3::1985-04-07",
+      "sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-07-25::3::1984-09-01",
+      "startYear": 1984,
+      "cname": "TESHALE"
+    },
+    {
+      "name": "Sorghum_rf_lowN_belg_base",
+      "season": "Belg",
+      "lateSeason": true,
+      "nyers": 36,
+      "management": "Rainfed Low N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_SG_LI_Belg.tif",
+      "ramt": 500,
+      "icres": 50,
+      "icrt": 5,
+      "fen_tot": 10,
+      "icsw%": 25,
+      "irrig": "R",
+      "ingeno": "ET0001",
+      "pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-01-25::3::1985-03-01",
+      "plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-28::3::1985-04-07",
+      "sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-07-25::3::1984-09-01",
+      "startYear": 1984,
+      "cname": "TESHALE"
+    },
+    {
+      "name": "Sorghum_rf_0N_belg_base",
+      "season": "Belg",
+      "lateSeason": true,
+      "nyers": 36,
+      "management": "Rainfed No N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_SG_SU_Belg.tif",
+      "ramt": 500,
+      "icres": 0,
+      "icrt": 0,
+      "fen_tot": 0,
+      "icsw%": 25,
+      "irrig": "R",
+      "ingeno": "ET0001",
+      "pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-01-25::3::1985-03-01",
+      "plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-28::3::1985-04-07",
+      "sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-07-25::3::1984-09-01",
+      "startYear": 1984,
+      "cname": "TESHALE"
     }
   ]
 }
