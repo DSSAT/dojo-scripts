@@ -53,7 +53,7 @@
   ],
   "default_setup": {
     "include": [
-      "/data/ethiopia/includes/SGCER047.CUL"
+      "/data/ethiopia/includes/SGCER048.CUL"
     ],
     "template": "DSSG2201.SNX",
     "sites": "xy_from_vector::/data/ethiopia/shapes/Five_arcmin_pt_Eth.shp",
@@ -74,7 +74,7 @@
     "population": "raster::/data/base/gpw/gpw_v4_population_count_adjusted_to_2015_unwpp_country_totals_rev11_2020_agg5_min.tif"
   },
   "dssat": {
-    "executable": "/opt/dssat/run_dssat"
+    "executable": "/opt/dssat/dscsm048"
   },
   "analytics_setup": {
     "singleOutput": true
