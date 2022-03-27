@@ -66,7 +66,7 @@
     "pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::1::1985-05-01::2::1985-06-01::3::1985-09-01",
     "plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::1::1985-06-12::2::1985-07-13::3::1985-10-13",
     "sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::1::1984-11-02::2::1984-12-03::3::1985-03-05",
-    "id_soil": "lookup_ghr::raster::/data/ethiopia/rasters/GHR.tif",
+    "id_soil": "lookup_ghr::raster::/data/base/eGHR/GHR.tif",
     "wsta": "lookup_wth::ETCP::vector::/data/ethiopia/shapes/Five_arcmin_pt_Eth.shp::ID",
     "ic_layers": "generate_ic_layers::$id_soil",
     "ramt": 0,
