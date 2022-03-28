@@ -3,8 +3,8 @@
   "workDir": "/tmp/results",
   "templateDir": "/data/ethiopia/templates",
   "weatherDir": "/data/ethiopia/weather",
-  "threads": 6,
-  "cores": 12,
+  "threads": 2,
+  "cores": 4,
   "ghr_root": "/data/base/eGHR",
   "sample": 10,
   "plugins": [
@@ -14,19 +14,19 @@
         "fen_tot": {
           "method": "offset",
           "values": [
-            0
+            ~f_i~
           ]
         },
         "erain": {
           "method": "env_mod",
           "values": [
-            "M1"
+            "M~p_m~"
           ]
         },
         "pfrst": {
           "method": "date_offset",
           "values": [
-            0
+            ~pd_s~
           ],
           "hook": "post_build_context"
         },
@@ -52,12 +52,9 @@
     }
   ],
   "default_setup": {
-    "include": [
-      "/data/ethiopia/includes/TFAPS047.CUL"
-    ],
-    "template": "ETTF8401.SNX",
+    "template": "DSTF2201.SNX",
     "sites": "xy_from_vector::/data/ethiopia/shapes/Five_arcmin_pt_Eth.shp",
-    "nyers": 35,
+    "nyers": 37,
     "icin": 10,
     "icsw%": 25,
     "flhst": "FH302",
@@ -66,7 +63,7 @@
     "pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::1::1985-05-01::2::1985-06-01::3::1985-09-01",
     "plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::1::1985-06-12::2::1985-07-13::3::1985-10-13",
     "sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::1::1984-11-02::2::1984-12-03::3::1985-03-05",
-    "id_soil": "lookup_ghr::raster::/data/ethiopia/rasters/GHR_eth.tif",
+    "id_soil": "lookup_ghr::raster::/data/base/eGHR/GHR.tif",
     "wsta": "lookup_wth::ETCP::vector::/data/ethiopia/shapes/Five_arcmin_pt_Eth.shp::ID",
     "ic_layers": "generate_ic_layers::$id_soil",
     "ramt": 0,
@@ -74,61 +71,143 @@
     "population": "raster::/data/base/gpw/gpw_v4_population_count_adjusted_to_2015_unwpp_country_totals_rev11_2020_agg5_min.tif"
   },
   "dssat": {
-    "executable": "/opt/dssat/run_dssat"
+    "executable": "/opt/dssat/dscsm048"
   },
   "analytics_setup": {
-    "per_pixel_prefix": "pp"
+    "singleOutput": true
   },
   "runs": [
     {
       "name": "Irrigated",
-      "harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_ocer_teff_i_meher.tif",
+      "season": "Meher",
+      "management": "Irrigated High N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_TF_IR_Meher.tif",
       "irrig": "A",
       "icsw%": 50,
       "flhst": "FH301",
       "icres": 200,
       "icrt": 20,
       "fen_tot": 50,
-      "ingeno": "ET0001",
+      "ingeno": "IB0161",
       "cname": "DZ-01-354",
       "startYear": 1984
     },
     {
       "name": "Rainfed_High_N_Input",
-      "harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_ocer_teff_h_meher.tif",
+      "management": "Rainfed High N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_TF_HI_Meher.tif",
       "icres": 100,
       "icrt": 10,
       "fen_tot": 50,
       "icsw%": 25,
       "irrig": "R",
-      "ingeno": "ET0001",
+      "ingeno": "IB0161",
       "cname": "DZ-01-354",
       "startYear": 1984
     },
     {
       "name": "Rainfed_Low_N_Input",
-      "harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_ocer_teff_l_meher.tif",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_TF_LI_Meher.tif",
       "ramt": 500,
       "icres": 50,
       "icrt": 5,
       "fen_tot": 10,
       "icsw%": 25,
       "irrig": "R",
-      "ingeno": "ET0001",
+      "ingeno": "IB0161",
       "cname": "DZ-01-354",
       "startYear": 1984
     },
     {
       "name": "Rainfed_No_Input",
-      "harvestArea": "raster::/data/ethiopia/rasters/spam2010v1r0_eth_harvested-area_ocer_teff_s_meher.tif",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_TF_SU_Meher.tif",
       "ramt": 500,
       "icres": 0,
       "icrt": 0,
       "fen_tot": 0,
       "icsw%": 25,
       "irrig": "R",
-      "ingeno": "ET0001",
+      "ingeno": "IB0161",
       "cname": "DZ-01-354",
+      "startYear": 1984
+    },
+    {
+      "name": "Teff_irrig_belg",
+      "season": "Belg",
+      "lateSeason": true,
+      "nyers": 36,
+      "management": "Irrigated High N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_TF_IR_Belg.tif",
+      "irrig": "A",
+      "icsw%": 50,
+      "flhst": "FH301",
+      "icres": 200,
+      "fen_tot": 50,
+      "icrt": 20,
+      "ingeno": "IB0161",
+      "cname": "DZ-01-354",
+      "pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-01::3::1985-03-01",
+      "plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-03-15::3::1985-04-12",
+      "sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-08-05::3::1984-09-03",
+      "startYear": 1984
+    },
+    {
+      "name": "Teff_rf_highN_belg",
+      "season": "Belg",
+      "lateSeason": true,
+      "nyers": 36,
+      "management": "Rainfed High N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_TF_HI_Belg.tif",
+      "irrig": "R",
+      "icres": 100,
+      "icrt": 10,
+      "fen_tot": 50,
+      "icsw%": 25,
+      "ingeno": "IB0161",
+      "cname": "DZ-01-354",
+      "pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-01::3::1985-03-01",
+      "plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-03-15::3::1985-04-12",
+      "sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-08-05::3::1984-09-03",
+      "startYear": 1984
+    },
+    {
+      "name": "Teff_rf_lowN_belg",
+      "season": "Belg",
+      "lateSeason": true,
+      "nyers": 36,
+      "management": "Rainfed Low N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_TF_LI_Belg.tif",
+      "irrig": "R",
+      "ramt": 500,
+      "icres": 50,
+      "icrt": 5,
+      "fen_tot": 10,
+      "icsw%": 25,
+      "ingeno": "IB0161",
+      "cname": "DZ-01-354",
+      "pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-01::3::1985-03-01",
+      "plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-03-15::3::1985-04-12",
+      "sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-08-05::3::1984-09-03",
+      "startYear": 1984
+    },
+    {
+      "name": "Teff_rf_0N_belg",
+      "season": "Belg",
+      "lateSeason": true,
+      "nyers": 36,
+      "management": "Rainfed No N Inputs",
+      "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_TF_SU_Belg.tif",
+      "irrig": "R",
+      "ramt": 500,
+      "icres": 0,
+      "icrt": 0,
+      "fen_tot": 0,
+      "icsw%": 25,
+      "ingeno": "IB0161",
+      "cname": "DZ-01-354",
+      "pfrst": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-02-01::3::1985-03-01",
+      "plast": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1985-03-15::3::1985-04-12",
+      "sdate": "assign_by_raster_value::raster::/data/ethiopia/rasters/eth_pdatzones.tif::2::1984-08-05::3::1984-09-03",
       "startYear": 1984
     }
   ]
