@@ -94,6 +94,7 @@
     },
     {
       "name": "Rainfed_High_N_Input",
+      "season": "Meher",
       "management": "Rainfed High N Inputs",
       "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_TF_HI_Meher.tif",
       "icres": 100,
@@ -107,6 +108,7 @@
     },
     {
       "name": "Rainfed_Low_N_Input",
+      "season": "Meher",
       "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_TF_LI_Meher.tif",
       "ramt": 500,
       "icres": 50,
@@ -120,6 +122,7 @@
     },
     {
       "name": "Rainfed_No_Input",
+      "season": "Meher",
       "harvestArea": "raster::/data/ethiopia/rasters/SPAM2017_ETH_TF_SU_Meher.tif",
       "ramt": 500,
       "icres": 0,
