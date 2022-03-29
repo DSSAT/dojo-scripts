@@ -157,11 +157,14 @@ sed -i "s/~pd_s~/${args[2]}/g" /userdata/pythia.json
 echo "DONE"
 
 # Actually run the pipeline
+echo "Starting pythia at $(date)"
+echo "This can take 24+ hours to complete"
 rm -rf $NEW_PYTHIA_DIR/* && \
 mkdir -p $NEW_PYTHIA_DIR
 cd $HOME && \
 pythia --quiet --clean-work-dir --all /userdata/pythia.json && \
 cp "${ORIG_PYTHIA_DIR}/${PYTHIA_PP}" $WORK_FILE
+echo "Finished pythia at $(date)"
 cd /opt/pythia-analytics && \
     # Assign Admin Level
     /usr/bin/Rscript fix-pythia-outputs.R -o -l 2 -v $ADMLV_LEVEL -u $ADMLV_MATCH -c -- $WORK_FILE && \
