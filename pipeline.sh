@@ -167,7 +167,7 @@ cp "${ORIG_PYTHIA_DIR}/${PYTHIA_PP}" $WORK_FILE
 echo "Finished pythia at $(date)"
 cd /opt/pythia-analytics && \
     # Assign Admin Level
-    /usr/bin/Rscript fix-pythia-outputs.R -o -l 2 -v $ADMLV_LEVEL -u $ADMLV_MATCH -c -- $WORK_FILE && \
+    # /usr/bin/Rscript fix-pythia-outputs.R -o -l 2 -v $ADMLV_LEVEL -u $ADMLV_MATCH -c -- $WORK_FILE && \
     
     # Per pixel non-aggregated values
     /usr/bin/Rscript aggregate-pythia-outputs.R -f LATITUDE LONGITUDE MGMT HYEAR CR SEASON -v PRODUCTION CROP_FAILURE_AREA -t HARVEST_AREA -o NICM -a HWAM -c $CROP_FAILURE_THRESHOLD -l $LOW_PRODUCTION_PER_PERSON -- $WORK_FILE $ANALYSIS_DIR/stage_2.csv
