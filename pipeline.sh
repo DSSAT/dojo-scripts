@@ -76,9 +76,19 @@ if [ -z $1 ]; then
 fi
 
 # Check to make sure the parameters are correct
-raw_args=("$@")
-mode="${raw_args[0]}"
-args=("${raw_args[@]:1}")
+debug=0
+while getopts d OPTS; do
+    case $OPTS in
+        d)
+            debug=1
+            ;;
+    esac
+done
+
+shift $((OPTIND -1))
+mode=$1
+shift
+args=("$@")
 argl="${#args[@]}"
 echo "Mode: $mode"
 echo "Args: ${args[@]}"
