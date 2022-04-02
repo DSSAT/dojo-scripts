@@ -136,17 +136,23 @@ echo "---"
 # Extract base data
 echo -n "Extracting global datasets..."
 cd /data && \
-tar xjf $HOME/downloads/global-base-latest.tar.bz2
+    tar xjf /usr/local/share/world-modelers/global-base-latest.tar.bz2
+echo "DONE"
+
+# Extract ethiopia base data
+echo -n "Extracting Ethiopia base datasets..."
+cd /data && \
+    tar xjf /usr/local/share/world-modelers/ethiopia-base-latest.tar.bz2
 echo "DONE"
 
 # Load the newest weather files
 echo "Downloading the weather files"
 curl --create-dirs -so $HOME/downloads/ethiopia-weather-latest.tar.bz2 https://data.agmip.org/darpa/ethiopia-weather-latest.tar.bz2 && \
-mkdir $WEATHER_PATH && \
-cd $WEATHER_PATH && \
-echo -n "Extracting weather files..."
-tar xjf $HOME/downloads/ethiopia-weather-latest.tar.bz2
-echo "DONE"
+    mkdir $WEATHER_PATH && \
+    cd $WEATHER_PATH && \
+    echo -n "Extracting weather files..." && \
+    tar xjf $HOME/downloads/ethiopia-weather-latest.tar.bz2 && \
+    echo "DONE"
 rm $HOME/downloads/ethiopia-weather-latest.tar.bz2
 
 # Replace templated values inside the pythia.json file.
