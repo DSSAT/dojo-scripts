@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-IMAGE_PATH="/home/frostbytten/Downloads/test/"
+IMAGE_PATH="/userdata/images/"
 
 # === DO NOT MODIFY BELOW THIS LINE ===
 CURRENT=$(pwd)
