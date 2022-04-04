@@ -22,7 +22,7 @@ CURRENT=`pwd`
 SA_BASELINE=("0" "1.0" "0")
 CC_BASELINE=("0.0" "1.0")
 F_BASELINE=("2022-01-01")
-BASELINE_IMAGE_SRC="/data/ethiopia/images"
+BASELINE_IMAGE_SRC="/data/images"
 BASELINE_IMAGE_DEST="/userdata/images"
 
 display_help() {
