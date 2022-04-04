@@ -6,6 +6,7 @@
   "threads": 4,
   "cores": 8,
   "ghr_root": "/data/base/eGHR",
+  "sample": 10,
   "plugins": [
     {
       "plugin": "sensitivity_plugin",
