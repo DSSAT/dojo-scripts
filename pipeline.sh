@@ -18,9 +18,9 @@ NEW_PYTHIA_DIR="/userdata/out"
 WORK_FILE="${NEW_PYTHIA_DIR}/${PYTHIA_PP}"
 BASELINE_ANALYSIS_DIR="/data/baseline"
 ANALYSIS_DIR="/userdata/out"
-CURRENT=`pwd`
+CURRENT=$(pwd)
 SA_BASELINE=("0" "1.0" "0")
-CC_BASELINE=("0.0" "1.0")
+CC_BASELINE=("0.0" "1.0" "350")
 F_BASELINE=("2022-01-01")
 BASELINE_IMAGE_SRC="/data/images"
 BASELINE_IMAGE_DEST="/userdata/images"
@@ -33,7 +33,7 @@ display_help() {
     echo "mode          sa, cc, f"
     echo "arg1          F,  T,  F"
     echo "arg2          R,  R,  -"
-    echo "arg3          P,  -,  -"
+    echo "arg3          P,  C,  -"
     echo
 }
 
@@ -96,8 +96,8 @@ case $mode in
     ;;
 "cc")
     echo -n "checking CC parameters..."
-    if [[ $argl -ne 2 ]]; then
-        bail "error: invalid number of parameters for CC mode. Expected 2, found $((args - 1))."
+    if [[ $argl -ne 3 ]]; then
+        bail "error: invalid number of parameters for CC mode. Expected 3, found $((args - 1))."
     fi
     check_for_number
     echo "DONE"
@@ -135,49 +135,63 @@ echo "---"
 
 # Extract base data
 echo -n "Extracting global datasets..."
-cd /data && \
+cd /data &&
     tar xjf /usr/local/share/world-modelers/global-base-latest.tar.bz2
 echo "DONE"
 
 # Extract ethiopia base data
 echo -n "Extracting Ethiopia base datasets..."
-cd /data && \
+cd /data &&
     tar xjf /usr/local/share/world-modelers/ethiopia-base-latest.tar.bz2
 echo "DONE"
 
 # Load the newest weather files
 echo "Downloading the weather files"
-curl --create-dirs -so $HOME/downloads/ethiopia-weather-latest.tar.bz2 https://data.agmip.org/darpa/ethiopia-weather-latest.tar.bz2 && \
-    mkdir $WEATHER_PATH && \
-    cd $WEATHER_PATH && \
-    echo -n "Extracting weather files..." && \
-    tar xjf $HOME/downloads/ethiopia-weather-latest.tar.bz2 && \
+curl --create-dirs -so $HOME/downloads/ethiopia-weather-latest.tar.bz2 https://data.agmip.org/darpa/ethiopia-weather-latest.tar.bz2 &&
+    mkdir $WEATHER_PATH &&
+    cd $WEATHER_PATH &&
+    echo -n "Extracting weather files..." &&
+    tar xjf $HOME/downloads/ethiopia-weather-latest.tar.bz2 &&
     echo "DONE"
 rm $HOME/downloads/ethiopia-weather-latest.tar.bz2
 
 # Replace templated values inside the pythia.json file.
 echo "Replacing template information..."
-sed -i.bak "s/~f_i~/${args[0]}/g" /userdata/pythia.json &&
-sed -i "s/~p_m~/${args[1]}/g" /userdata/pythia.json &&
-sed -i "s/~pd_s~/${args[2]}/g" /userdata/pythia.json
+case $mode in
+"sa")
+    sed -i.bak "s/~f_i~/${args[0]}/g" /userdata/pythia.json &&
+        sed -i "s/~p_m~/${args[1]}/g" /userdata/pythia.json &&
+        sed -i "s/~pd_s~/${args[2]}/g" /userdata/pythia.json
+    ;;
+"cc")
+    sed -i.bak "s/~a_t~/${args[0]}/g" /userdata/pythia.json &&
+        sed -i "s/~p_m~/${args[1]}/g" /userdata/pythia.json &&
+        sed -i "s/~r_c~/${args[2]}/g" /userdata/pythia.json
+    ;;
+
+"f") ;;
+*)
+    bail "error: invalid mode parameter"
+    ;;
+esac
 echo "DONE"
 
 # Actually run the pipeline
 echo "Starting pythia at $(date)"
 echo "This can take 24+ hours to complete"
-rm -rf $NEW_PYTHIA_DIR/* && \
-mkdir -p $NEW_PYTHIA_DIR
-cd $HOME && \
-pythia --quiet --clean-work-dir --all /userdata/pythia.json && \
-cp "${ORIG_PYTHIA_DIR}/${PYTHIA_PP}" $WORK_FILE
+rm -rf $NEW_PYTHIA_DIR/* &&
+    mkdir -p $NEW_PYTHIA_DIR
+cd $HOME &&
+    pythia --quiet --clean-work-dir --all /userdata/pythia.json &&
+    cp "${ORIG_PYTHIA_DIR}/${PYTHIA_PP}" $WORK_FILE
 echo "Finished pythia at $(date)"
-cd /opt/pythia-analytics && \
+cd /opt/pythia-analytics &&
     # Assign Admin Level
     # /usr/bin/Rscript fix-pythia-outputs.R -o -l 2 -v $ADMLV_LEVEL -u $ADMLV_MATCH -c -- $WORK_FILE && \
-    
+
     # Per pixel non-aggregated values
     /usr/bin/Rscript aggregate-pythia-outputs.R -f LATITUDE LONGITUDE MGMT HYEAR CR SEASON -v PRODUCTION CROP_FAILURE_AREA -t HARVEST_AREA -o NICM -a HWAM -c $CROP_FAILURE_THRESHOLD -l $LOW_PRODUCTION_PER_PERSON -- $WORK_FILE $ANALYSIS_DIR/stage_2.csv
-    
+
 rm -rf $ORIG_PYTHIA_DIR
 rm -rf $WEATHER_PATH
 mv /userdata/pythia.json.bak /userdata/pythia.json
