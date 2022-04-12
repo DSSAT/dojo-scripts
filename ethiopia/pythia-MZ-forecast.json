@@ -24,6 +24,7 @@
 		"wsta": "lookup_wth::ETCP::vector::/data/ethiopia/shapes/Five_arcmin_pt_Eth.shp::ID",
 		"ic_layers": "generate_ic_layers::$id_soil",
 		"ramt": 0,
+		"fodate": "~f_d~",
 		"fertilizers": "split_fert_dap_percent::$fen_tot::5::0::50::30::50",
 		"population": "raster::/data/base/gpw/gpw_v4_population_count_adjusted_to_2015_unwpp_country_totals_rev11_2020_agg5_min.tif"
 	},
