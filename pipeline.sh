@@ -169,7 +169,13 @@ case $mode in
         sed -i "s/~r_c~/${args[2]}/g" /userdata/pythia.json
     ;;
 
-"f") ;;
+"f")
+    if [[ $is_baseline -eq 0 ]]; then
+        sed -i.bak "s/~f_d~/2022-01-01/g" /userdata/pythia.json
+    else
+        sed -i.bak "s/~f_d~/-99/g" /userdata/pythia.json
+    fi
+    ;;
 *)
     bail "error: invalid mode parameter"
     ;;
@@ -185,22 +191,34 @@ cd $HOME &&
     pythia --quiet --clean-work-dir --all /userdata/pythia.json &&
     cp "${ORIG_PYTHIA_DIR}/${PYTHIA_PP}" $WORK_FILE
 echo "Finished pythia at $(date)"
-cd /opt/pythia-analytics &&
+cd /opt/pythia-analytics
+if [[ $mode == "f" ]]; then
     # Assign Admin Level
-    # /usr/bin/Rscript fix-pythia-outputs.R -o -l 2 -v $ADMLV_LEVEL -u $ADMLV_MATCH -c -- $WORK_FILE && \
-
+    /usr/bin/Rscript fix-pythia-outputs.R -o -l 2 -v $ADMLV_LEVEL -u $ADMLV_MATCH -c -- $WORK_FILE
+fi
     # Per pixel non-aggregated values
     /usr/bin/Rscript aggregate-pythia-outputs.R -f LATITUDE LONGITUDE MGMT HYEAR CR SEASON -v PRODUCTION CROP_FAILURE_AREA -t HARVEST_AREA -o NICM -a HWAM -c $CROP_FAILURE_THRESHOLD -l $LOW_PRODUCTION_PER_PERSON -- $WORK_FILE $ANALYSIS_DIR/stage_2.csv
+
+if [[ $mode ==  "f" ]]; then
+	mkdir -p $ANALYSIS_DIR/images
+	for l in {0..1}; do
+		/usr/bin/Rscript aggregate-pythia-outputs.R -f ADMLM$l HYM WYEAR CR -v PRODUCTION -- $WORK_FILE $ANALYSIS_DIR/stage_14_admlv$l.csv &&
+		/usr/bin/Rscript forecastplot-pythia-outputs.R -f ADMLV$l -- $ANALYSIS_DIR/stage_14_admlv$l.csv $ANALYSIS_DIR/images/ 
+	done
+	/usr/bin/Rscript mergeplot-pythia-outputs.R $ANALYSIS_DIR/images/ $BASELINE_IMAGE_DEST
+fi
 
 rm -rf $ORIG_PYTHIA_DIR
 rm -rf $WEATHER_PATH
 mv /userdata/pythia.json.bak /userdata/pythia.json
 
 if [[ $is_baseline -eq 0 ]]; then
-    echo -n "Copying images to be tagged for baseline runs..."
-    mkdir -p $BASELINE_IMAGE_DEST
-    cp -r $BASELINE_IMAGE_SRC/* $BASELINE_IMAGE_DEST
-    echo "DONE"
+	if [[ $mode != "f" ]]; then
+	    echo -n "Copying images to be tagged for baseline runs..."
+	    mkdir -p $BASELINE_IMAGE_DEST
+	    cp -r $BASELINE_IMAGE_SRC/* $BASELINE_IMAGE_DEST
+	    echo "DONE"
+	fi
 fi
 
 cd $CURRENT
