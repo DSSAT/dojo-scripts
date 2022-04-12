@@ -5,7 +5,8 @@ IMAGE_PATH="/userdata/images/"
 # === DO NOT MODIFY BELOW THIS LINE ===
 CURRENT=$(pwd)
 PREAMBLE="This image shows the model's sensitivity response to "
-CC_PREAMBLE="This image show how "
+CC_PREAMBLE="This image shows how "
+F_PREAMBLE=""
 
 cd ${IMAGE_PATH}
 for f in *; do
