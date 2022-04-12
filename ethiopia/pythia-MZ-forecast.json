@@ -5,6 +5,7 @@
 	"weatherDir": "/data/ethiopia/weather",
 	"threads": 4,
 	"cores": 8,
+	"sample": 10,
 	"ghr_root": "/data/base/eGHR",
 	"default_setup": {
 		"include": [
