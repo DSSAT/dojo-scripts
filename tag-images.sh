@@ -31,7 +31,7 @@ for f in *; do
 		PREAMBLE=${CC_PREAMBLE}
 		desc="changes in CO2 levels due to climate change could impact food security"
 		;;
-	"monthly_production")
+	"monthly production")
 		PREAMBLE=${F_PREAMBLE}
 		desc="current forecast"
 		;;
