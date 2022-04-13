@@ -65,6 +65,13 @@ check_for_isodate() {
 			err="${err}error: argument in position $((i + 1)) (${args[$i]}) should be a valid ISO date (YYYY-mm-dd).\n"
 			cfdr=1
 		fi
+		# Test for future date
+		ford=$(date -d "${args[0]}" +"%s")
+		curd=$(date +"%s")
+		if [[ ford -gt curd ]]; then
+			err=	"${err}error: forecast simulation date is in the future. This should be today or earlier.\n"
+			cfdr=1
+		fi
 	done
 	if [[ cfdr -eq 1 ]]; then
 		bail "${err[@]}"
