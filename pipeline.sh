@@ -26,53 +26,53 @@ BASELINE_IMAGE_SRC="/data/images"
 BASELINE_IMAGE_DEST="/userdata/images"
 
 display_help() {
-    echo
-    echo "pipeline - A DSSAT-pythia harness for the Dojo environment"
-    echo
-    echo "Usage: pipeline mode arg1 [arg2] [arg3]"
-    echo "mode          sa, cc, f"
-    echo "arg1          F,  T,  F"
-    echo "arg2          R,  R,  -"
-    echo "arg3          P,  C,  -"
-    echo
+	echo
+	echo "pipeline - A DSSAT-pythia harness for the Dojo environment"
+	echo
+	echo "Usage: pipeline mode arg1 [arg2] [arg3]"
+	echo "mode          sa, cc, f"
+	echo "arg1          F,  T,  F"
+	echo "arg2          R,  R,  -"
+	echo "arg3          P,  C,  -"
+	echo
 }
 
 bail() {
-    display_help
-    echo -e "$1" 1>&2
-    exit 1
+	display_help
+	echo -e "$1" 1>&2
+	exit 1
 }
 
 check_for_number() {
-    cfnr=0
-    for i in "${!args[@]}"; do
-        v=$(echo ${args[$i]} | grep -c '^[-]\?[0-9\.]\+$')
-        if [[ $v -ne 1 ]]; then
-            err="${err}error: argument in position $((i + 1)) (${args[$i]}) should be a number.\n"
-            cfnr=1
-        fi
-    done
-    if [[ cfnr -eq 1 ]]; then
-        bail "${err[@]}"
-    fi
+	cfnr=0
+	for i in "${!args[@]}"; do
+		v=$(echo ${args[$i]} | grep -c '^[-]\?[0-9\.]\+$')
+		if [[ $v -ne 1 ]]; then
+			err="${err}error: argument in position $((i + 1)) (${args[$i]}) should be a number.\n"
+			cfnr=1
+		fi
+	done
+	if [[ cfnr -eq 1 ]]; then
+		bail "${err[@]}"
+	fi
 }
 
 check_for_isodate() {
-    cfdr=0
-    for i in "${!args[@]}"; do
-        v=$(echo ${args[$i]} | grep -c '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}$')
-        if [[ $v -ne 1 ]]; then
-            err="${err}error: argument in position $((i + 1)) (${args[$i]}) should be a valid ISO date (YYYY-mm-dd).\n"
-            cfdr=1
-        fi
-    done
-    if [[ cfdr -eq 1 ]]; then
-        bail "${err[@]}"
-    fi
+	cfdr=0
+	for i in "${!args[@]}"; do
+		v=$(echo ${args[$i]} | grep -c '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}$')
+		if [[ $v -ne 1 ]]; then
+			err="${err}error: argument in position $((i + 1)) (${args[$i]}) should be a valid ISO date (YYYY-mm-dd).\n"
+			cfdr=1
+		fi
+	done
+	if [[ cfdr -eq 1 ]]; then
+		bail "${err[@]}"
+	fi
 }
 
 if [ -z $1 ]; then
-    bail "error: invalid parameters"
+	bail "error: invalid parameters"
 fi
 
 # Check to make sure the parameters are correct
@@ -86,48 +86,48 @@ echo "Argsl: $argl"
 
 case $mode in
 "sa")
-    echo -n "checking SA parameters..."
-    if [[ $argl -ne 3 ]]; then
-        bail "error: invalid number of parameters for SA mode. Expected 3, found $argl."
-    fi
-    check_for_number
-    echo "DONE"
-    baseline_check=("${SA_BASELINE[@]}")
-    ;;
+	echo -n "checking SA parameters..."
+	if [[ $argl -ne 3 ]]; then
+		bail "error: invalid number of parameters for SA mode. Expected 3, found $argl."
+	fi
+	check_for_number
+	echo "DONE"
+	baseline_check=("${SA_BASELINE[@]}")
+	;;
 "cc")
-    echo -n "checking CC parameters..."
-    if [[ $argl -ne 3 ]]; then
-        bail "error: invalid number of parameters for CC mode. Expected 3, found $((args - 1))."
-    fi
-    check_for_number
-    echo "DONE"
-    baseline_check=("${CC_BASELINE[@]}")
-    ;;
+	echo -n "checking CC parameters..."
+	if [[ $argl -ne 3 ]]; then
+		bail "error: invalid number of parameters for CC mode. Expected 3, found $((args - 1))."
+	fi
+	check_for_number
+	echo "DONE"
+	baseline_check=("${CC_BASELINE[@]}")
+	;;
 "f")
-    echo -n "checking F parameters..."
-    if [[ $argl -ne 1 ]]; then
-        bail "error: invalid number of parameters for F mode. Expected 1, found $((args - 1))"
-    fi
-    check_for_isodate
-    echo "DONE"
-    baseline_check=("${F_BASELINE[@]}")
-    ;;
+	echo -n "checking F parameters..."
+	if [[ $argl -ne 1 ]]; then
+		bail "error: invalid number of parameters for F mode. Expected 1, found $((args - 1))"
+	fi
+	check_for_isodate
+	echo "DONE"
+	baseline_check=("${F_BASELINE[@]}")
+	;;
 *)
-    bail "error: invalid mode parameter"
-    ;;
+	bail "error: invalid mode parameter"
+	;;
 esac
 
 echo -n "baseline run..."
 is_baseline=0
 for i in "${!args[@]}"; do
-    if [ "${baseline_check[$i]}" != "${args[$i]}" ]; then
-        is_baseline=1
-    fi
+	if [ "${baseline_check[$i]}" != "${args[$i]}" ]; then
+		is_baseline=1
+	fi
 done
 if [[ $is_baseline -eq 1 ]]; then
-    echo "FALSE"
+	echo "FALSE"
 else
-    echo "TRUE"
+	echo "TRUE"
 fi
 
 echo "Executing run"
@@ -136,52 +136,53 @@ echo "---"
 # Extract base data
 echo -n "Extracting global datasets..."
 cd /data &&
-    tar xjf /usr/local/share/world-modelers/global-base-latest.tar.bz2
+	tar xjf /usr/local/share/world-modelers/global-base-latest.tar.bz2
 echo "DONE"
 
 # Extract ethiopia base data
 echo -n "Extracting Ethiopia base datasets..."
 cd /data &&
-    tar xjf /usr/local/share/world-modelers/ethiopia-base-latest.tar.bz2
+	tar xjf /usr/local/share/world-modelers/ethiopia-base-latest.tar.bz2
 echo "DONE"
 
 # Load the newest weather files
 echo "Downloading the weather files"
 if [[ $mode == "f" ]]; then
-    curl --create-dirs -so $HOME/downloads/ethiopia-weather-latest.tar.bz2 https://data.agmip.org/darpa/ethiopia-weather-forecast-latest.tar.bz2
-    curl --create-dirs -so $HOME/downloads/ethiopia-weather-latest.tar.bz2 https://data.agmip.org/darpa/ethiopia-weather-latest.tar.bz2
+	curl --create-dirs -so $HOME/downloads/ethiopia-weather-latest.tar.bz2 https://data.agmip.org/darpa/ethiopia-weather-forecast-latest.tar.bz2
+else
+	curl --create-dirs -so $HOME/downloads/ethiopia-weather-latest.tar.bz2 https://data.agmip.org/darpa/ethiopia-weather-latest.tar.bz2
 fi
 mkdir $WEATHER_PATH &&
-    cd $WEATHER_PATH &&
-    echo -n "Extracting weather files..." &&
-    tar xjf $HOME/downloads/ethiopia-weather-latest.tar.bz2 &&
-    echo "DONE"
+	cd $WEATHER_PATH &&
+	echo -n "Extracting weather files..." &&
+	tar xjf $HOME/downloads/ethiopia-weather-latest.tar.bz2 &&
+	echo "DONE"
 rm $HOME/downloads/ethiopia-weather-latest.tar.bz2
 
 # Replace templated values inside the pythia.json file.
 echo "Replacing template information..."
 case $mode in
 "sa")
-    sed -i.bak "s/~f_i~/${args[0]}/g" /userdata/pythia.json &&
-        sed -i "s/~p_m~/${args[1]}/g" /userdata/pythia.json &&
-        sed -i "s/~pd_s~/${args[2]}/g" /userdata/pythia.json
-    ;;
+	sed -i.bak "s/~f_i~/${args[0]}/g" /userdata/pythia.json &&
+		sed -i "s/~p_m~/${args[1]}/g" /userdata/pythia.json &&
+		sed -i "s/~pd_s~/${args[2]}/g" /userdata/pythia.json
+	;;
 "cc")
-    sed -i.bak "s/~a_t~/${args[0]}/g" /userdata/pythia.json &&
-        sed -i "s/~p_m~/${args[1]}/g" /userdata/pythia.json &&
-        sed -i "s/~r_c~/${args[2]}/g" /userdata/pythia.json
-    ;;
+	sed -i.bak "s/~a_t~/${args[0]}/g" /userdata/pythia.json &&
+		sed -i "s/~p_m~/${args[1]}/g" /userdata/pythia.json &&
+		sed -i "s/~r_c~/${args[2]}/g" /userdata/pythia.json
+	;;
 
 "f")
-    if [[ $is_baseline -eq 0 ]]; then
-        sed -i.bak "s/~f_d~/2022-01-01/g" /userdata/pythia.json
-    else
-        sed -i.bak "s/~f_d~/-99/g" /userdata/pythia.json
-    fi
-    ;;
+	if [[ $is_baseline -eq 0 ]]; then
+		sed -i.bak "s/~f_d~/2022-01-01/g" /userdata/pythia.json
+	else
+		sed -i.bak "s/~f_d~/-99/g" /userdata/pythia.json
+	fi
+	;;
 *)
-    bail "error: invalid mode parameter"
-    ;;
+	bail "error: invalid mode parameter"
+	;;
 esac
 echo "DONE"
 
@@ -189,26 +190,25 @@ echo "DONE"
 echo "Starting pythia at $(date)"
 echo "This can take 24+ hours to complete"
 rm -rf $NEW_PYTHIA_DIR/* &&
-    mkdir -p $NEW_PYTHIA_DIR
+	mkdir -p $NEW_PYTHIA_DIR
 cd $HOME &&
-    pythia --quiet --clean-work-dir --all /userdata/pythia.json &&
-    cp "${ORIG_PYTHIA_DIR}/${PYTHIA_PP}" $WORK_FILE
+	pythia --quiet --clean-work-dir --all /userdata/pythia.json &&
+	cp "${ORIG_PYTHIA_DIR}/${PYTHIA_PP}" $WORK_FILE
 echo "Finished pythia at $(date)"
 cd /opt/pythia-analytics
 if [[ $mode == "f" ]]; then
-    # Assign Admin Level
-    /usr/bin/Rscript fix-pythia-outputs.R -o -l 2 -v $ADMLV_LEVEL -u $ADMLV_MATCH -c -- $WORK_FILE
+	# Assign Admin Level
+	/usr/bin/Rscript fix-pythia-outputs.R -o -l 2 -v $ADMLV_LEVEL -u $ADMLV_MATCH -c -- $WORK_FILE
 fi
-    # Per pixel non-aggregated values
-    /usr/bin/Rscript aggregate-pythia-outputs.R -f LATITUDE LONGITUDE MGMT HYEAR CR SEASON -v PRODUCTION CROP_FAILURE_AREA -t HARVEST_AREA -o NICM -a HWAM -c $CROP_FAILURE_THRESHOLD -l $LOW_PRODUCTION_PER_PERSON -- $WORK_FILE $ANALYSIS_DIR/stage_2.csv
+# Per pixel non-aggregated values
+/usr/bin/Rscript aggregate-pythia-outputs.R -f LATITUDE LONGITUDE MGMT HYEAR CR SEASON -v PRODUCTION CROP_FAILURE_AREA -t HARVEST_AREA -o NICM -a HWAM -c $CROP_FAILURE_THRESHOLD -l $LOW_PRODUCTION_PER_PERSON -- $WORK_FILE $ANALYSIS_DIR/stage_2.csv
 
-if [[ $mode ==  "f" ]]; then
-	mkdir -p $ANALYSIS_DIR/images
+if [[ $mode == "f" ]]; then
+	mkdir -p $BASELINE_IMAGE_DEST
 	for l in {0..1}; do
-		/usr/bin/Rscript aggregate-pythia-outputs.R -f ADMLM$l HYM WYEAR CR -v PRODUCTION -- $WORK_FILE $ANALYSIS_DIR/stage_14_admlv$l.csv &&
-		/usr/bin/Rscript forecastplot-pythia-outputs.R -f ADMLV$l -- $ANALYSIS_DIR/stage_14_admlv$l.csv $ANALYSIS_DIR/images/ 
+		/usr/bin/Rscript aggregate-pythia-outputs.R -f ADMLV$l HYM WYEAR CR -v PRODUCTION -- $WORK_FILE $ANALYSIS_DIR/stage_14_admlv$l.csv &&
+			/usr/bin/Rscript forecastplot-pythia-outputs.R -f ADMLV$l -- $ANALYSIS_DIR/stage_14_admlv$l.csv $BASELINE_IMAGE_DEST
 	done
-	/usr/bin/Rscript mergeplot-pythia-outputs.R $ANALYSIS_DIR/images/ $BASELINE_IMAGE_DEST
 fi
 
 rm -rf $ORIG_PYTHIA_DIR
@@ -217,11 +217,17 @@ mv /userdata/pythia.json.bak /userdata/pythia.json
 
 if [[ $is_baseline -eq 0 ]]; then
 	if [[ $mode != "f" ]]; then
-	    echo -n "Copying images to be tagged for baseline runs..."
-	    mkdir -p $BASELINE_IMAGE_DEST
-	    cp -r $BASELINE_IMAGE_SRC/* $BASELINE_IMAGE_DEST
-	    echo "DONE"
+		echo -n "Copying images to be tagged for baseline runs..."
+		mkdir -p $BASELINE_IMAGE_DEST
+		cp -r $BASELINE_IMAGE_SRC/* $BASELINE_IMAGE_DEST
+		echo "DONE"
 	fi
 fi
 
+if [[ $mode == "f" ]]; then
+	echo -n "Fixing image names for forecast runs..."
+	cd $BASELINE_IMAGE_DEST && 
+	/usr/local/bin/fix-images
+	echo "DONE"
+fi
 cd $CURRENT
