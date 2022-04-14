@@ -68,8 +68,8 @@ check_for_isodate() {
 		# Test for future date
 		ford=$(date -d "${args[0]}" +"%s")
 		curd=$(date +"%s")
-		if [[ ford -gt curd ]]; then
-			err=	"${err}error: forecast simulation date is in the future. This should be today or earlier.\n"
+		if [[ $ford -gt $curd ]]; then
+			err="${err}error: forecast simulation date is in the future. This should be today or earlier.\n"
 			cfdr=1
 		fi
 	done
