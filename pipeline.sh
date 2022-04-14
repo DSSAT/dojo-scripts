@@ -207,15 +207,16 @@ if [[ $mode == "f" ]]; then
 	# Assign Admin Level
 	/usr/bin/Rscript fix-pythia-outputs.R -o -l 2 -v $ADMLV_LEVEL -u $ADMLV_MATCH -c -- $WORK_FILE
 fi
-# Per pixel non-aggregated values
-/usr/bin/Rscript aggregate-pythia-outputs.R -f LATITUDE LONGITUDE MGMT HYEAR CR SEASON -v PRODUCTION CROP_FAILURE_AREA -t HARVEST_AREA -o NICM -a HWAM -c $CROP_FAILURE_THRESHOLD -l $LOW_PRODUCTION_PER_PERSON -- $WORK_FILE $ANALYSIS_DIR/stage_2.csv
 
 if [[ $mode == "f" ]]; then
+	/usr/bin/Rscript aggregate-pythia-outputs.R -f LATITUDE LONGITUDE HYM CR -y WYEAR -v PRODUCTION -- $WORK_FILE $ANALYSIS_DIR/stage_13.csv
 	mkdir -p $BASELINE_IMAGE_DEST
 	for l in {0..1}; do
 		/usr/bin/Rscript aggregate-pythia-outputs.R -f ADMLV$l HYM WYEAR CR -v PRODUCTION -- $WORK_FILE $ANALYSIS_DIR/stage_14_admlv$l.csv &&
 			/usr/bin/Rscript forecastplot-pythia-outputs.R -f ADMLV$l -- $ANALYSIS_DIR/stage_14_admlv$l.csv $BASELINE_IMAGE_DEST
 	done
+else
+	/usr/bin/Rscript aggregate-pythia-outputs.R -f LATITUDE LONGITUDE MGMT HYEAR CR SEASON -v PRODUCTION CROP_FAILURE_AREA -t HARVEST_AREA -o NICM -a HWAM -c $CROP_FAILURE_THRESHOLD -l $LOW_PRODUCTION_PER_PERSON -- $WORK_FILE $ANALYSIS_DIR/stage_2.csv
 fi
 
 rm -rf $ORIG_PYTHIA_DIR
@@ -233,8 +234,8 @@ fi
 
 if [[ $mode == "f" ]]; then
 	echo -n "Fixing image names for forecast runs..."
-	cd $BASELINE_IMAGE_DEST && 
-	/usr/local/bin/fix-images
+	cd $BASELINE_IMAGE_DEST &&
+		/usr/local/bin/fix-images
 	echo "DONE"
 fi
 cd $CURRENT
