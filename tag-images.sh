@@ -5,7 +5,8 @@ IMAGE_PATH="/userdata/images/"
 # === DO NOT MODIFY BELOW THIS LINE ===
 CURRENT=$(pwd)
 PREAMBLE="This image shows the model's sensitivity response to "
-CC_PREAMBLE="This image show how "
+CC_PREAMBLE="This image shows how "
+F_PREAMBLE="This image shows the "
 
 cd ${IMAGE_PATH}
 for f in *; do
@@ -29,6 +30,10 @@ for f in *; do
 	"co2")
 		PREAMBLE=${CC_PREAMBLE}
 		desc="changes in CO2 levels due to climate change could impact food security"
+		;;
+	"monthly production")
+		PREAMBLE=${F_PREAMBLE}
+		desc="current forecast"
 		;;
 	*)
 		echo "error: unsupport variable ($v)" 1>&2
