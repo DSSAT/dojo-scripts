@@ -181,11 +181,7 @@ case $mode in
 	;;
 
 "f")
-	if [[ $is_baseline -eq 0 ]]; then
-		sed -i.bak "s/~f_d~/2022-01-01/g" /userdata/pythia.json
-	else
-		sed -i.bak "s/~f_d~/-99/g" /userdata/pythia.json
-	fi
+	sed -i.bak "s/~f_d~/${args[0]}/g" /userdata/pythia.json
 	;;
 *)
 	bail "error: invalid mode parameter"
